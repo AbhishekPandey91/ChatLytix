@@ -1,0 +1,141 @@
+import streamlit as st
+import matplotlib.pyplot as plt
+
+import helper
+import preprocessor
+import seaborn as sns
+
+st.sidebar.title("Whatsapp Chat Analyzer")
+
+uploaded_file = st.sidebar.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+
+    data = bytes_data.decode('utf-8')
+    df = preprocessor.preprocesss(data)
+    st.title("All Chats in a DataFrame")
+    st.dataframe(df)
+
+    # finding unique user_name
+
+    list_user=df['user_name'].unique().tolist()
+    list_user.remove("grp_notification")
+    list_user.sort()
+    list_user.insert(0,"Full Analysis")
+
+    selected_user = st.sidebar.selectbox("Give Analysis",list_user)
+
+    if st.sidebar.button("Give Analysis"):
+
+        num_msgs , words , num_media_msg  , num_links= helper.fetch_stats(selected_user,df)
+        st.title('Top Statistics')
+        col1 , col2 , col3 , col4 = st.columns(4)
+
+        with col1:
+            st.header("Total Messages")
+            st.title(num_msgs)
+        with col2:
+            st.header("Total Words")
+            st.title(words)
+        with col3:
+            st.header("Total Media Shared")
+            st.title(num_media_msg)
+        with col4:
+            st.header("Total Links")
+            st.title(num_links)
+
+        ###  MONTHLY TIMELINE
+        timeline=helper.monthly_timeline(selected_user,df)
+        fig , ax = plt.subplots()
+        st.title("Monthly Timeline")
+        ax.plot(timeline['time'] ,timeline['msg'])
+        plt.xticks(rotation=90)
+        st.pyplot(fig)
+
+
+        ### DAILY TIMELINE
+
+        daily_timeline1 = helper.daily_timeline(selected_user, df)
+        fig, ax = plt.subplots()
+        st.title("Daily Timeline")
+        ax.plot(daily_timeline1['only_date'], daily_timeline1['msg'] , color='purple')
+        plt.xticks(rotation=90)
+        st.pyplot(fig)
+
+
+        ### ACTIVITY MAPPING
+        st.title("Activity Map")
+        col1,col2=st.columns(2)
+        with col1:
+            st.header("Most Busy Day")
+            busy_day = helper.week_activity_mapping(selected_user, df)
+            fig , ax = plt.subplots()
+            ax.bar(busy_day.index, busy_day.values)
+            plt.xticks(rotation=90)
+            st.pyplot(fig)
+
+        with col2:
+            st.header("Most Busy Month")
+            busy_month = helper.month_activity_mapping(selected_user, df)
+            fig, ax = plt.subplots()
+            ax.bar(busy_month.index, busy_month.values , color='orange')
+            plt.xticks(rotation=90)
+            st.pyplot(fig)
+
+
+        st.title("Weekly Activity HeatMap")
+        activity_heat = helper.activity_heatmap(selected_user, df)
+        fig, ax = plt.subplots()
+        ax = sns.heatmap(activity_heat)
+        st.pyplot(fig)
+
+
+        ### FINDING THE BUSIEST USer in group (only for group level)
+        if selected_user == "Full Analysis":
+            st.title("The most Busy User")
+            x , df1 =helper.most_busy_users(df)
+            fig,ax = plt.subplots()
+            col1, col2  = st.columns(2)
+
+            with col1:
+                ax.bar(x.index, x.values , color="green")
+                plt.xticks(rotation='vertical')
+                st.pyplot(fig)
+            with col2:
+                st.dataframe(df1)
+
+        ## WORDCLOUD
+        st.title("WordCloud")
+        df_wc=helper.create_wordcloud(selected_user,df)
+        fig , ax = plt.subplots()
+        ax.imshow(df_wc)
+        st.pyplot(fig)
+
+        ## MOST COMMON WORDS
+
+        most_common_df= helper.most_common_words(selected_user,df)
+
+        fig,ax = plt.subplots()
+        ax.barh(most_common_df[0] , most_common_df[1])
+        st.title("Most Common Words")
+        st.pyplot(fig)
+
+        ## EMOJI ANALYSIS
+        emoji_df = helper.emoji_analysis(selected_user , df )
+        st.title("Emoji Analysis")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.dataframe(emoji_df)
+        with col2:
+            fig,ax = plt.subplots()
+            ax.pie(emoji_df[1].head(),labels=emoji_df[0].head(),autopct='%0.2f')
+            st.pyplot(fig)
+
+
+
+
+
+
+
