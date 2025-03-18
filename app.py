@@ -5,6 +5,7 @@ import helper
 import preprocessor
 import seaborn as sns
 
+st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾")
 st.sidebar.title("ChatLytix")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
