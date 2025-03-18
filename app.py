@@ -5,7 +5,7 @@ import helper
 import preprocessor
 import seaborn as sns
 
-st.sidebar.title("Whatsapp Chat Analyzer")
+st.sidebar.title("ChatLytix")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -29,7 +29,7 @@ if uploaded_file is not None:
     if st.sidebar.button("Give Analysis"):
 
         num_msgs , words , num_media_msg  , num_links= helper.fetch_stats(selected_user,df)
-        st.title('Top Statistics')
+        st.title('Critical Figures')
         col1 , col2 , col3 , col4 = st.columns(4)
 
         with col1:
@@ -39,7 +39,7 @@ if uploaded_file is not None:
             st.header("Total Words")
             st.title(words)
         with col3:
-            st.header("Total Media Shared")
+            st.header("Total Media ")
             st.title(num_media_msg)
         with col4:
             st.header("Total Links")
@@ -48,7 +48,7 @@ if uploaded_file is not None:
         ###  MONTHLY TIMELINE
         timeline=helper.monthly_timeline(selected_user,df)
         fig , ax = plt.subplots()
-        st.title("Monthly Timeline")
+        st.title("Monthly Overview")
         ax.plot(timeline['time'] ,timeline['msg'])
         plt.xticks(rotation=90)
         st.pyplot(fig)
@@ -58,7 +58,7 @@ if uploaded_file is not None:
 
         daily_timeline1 = helper.daily_timeline(selected_user, df)
         fig, ax = plt.subplots()
-        st.title("Daily Timeline")
+        st.title("Daily Overview")
         ax.plot(daily_timeline1['only_date'], daily_timeline1['msg'] , color='purple')
         plt.xticks(rotation=90)
         st.pyplot(fig)
@@ -93,7 +93,7 @@ if uploaded_file is not None:
 
         ### FINDING THE BUSIEST USer in group (only for group level)
         if selected_user == "Full Analysis":
-            st.title("The most Busy User")
+            st.title("Full-Time Juggler 😎")
             x , df1 =helper.most_busy_users(df)
             fig,ax = plt.subplots()
             col1, col2  = st.columns(2)
@@ -106,7 +106,7 @@ if uploaded_file is not None:
                 st.dataframe(df1)
 
         ## WORDCLOUD
-        st.title("WordCloud")
+        st.title("Jargon Jungle 🌴")
         df_wc=helper.create_wordcloud(selected_user,df)
         fig , ax = plt.subplots()
         ax.imshow(df_wc)
@@ -118,7 +118,7 @@ if uploaded_file is not None:
 
         fig,ax = plt.subplots()
         ax.barh(most_common_df[0] , most_common_df[1])
-        st.title("Most Common Words")
+        st.title("Wordzilla 🦖")
         st.pyplot(fig)
 
         # ## EMOJI ANALYSIS
