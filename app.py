@@ -5,6 +5,37 @@ import helper
 import preprocessor
 import seaborn as sns
 
+#adding header 
+def add_header():
+    st.markdown(
+        """
+        <style>
+        .header {
+            padding: 12px 0;
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(90deg, #1F1C2C, #928DAB);
+            color: white;
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: -50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .main .block-container {
+            padding-top: 0;
+        }
+        </style>
+        <div class="header">
+            🚀 ChatLytix - Analyze Group & Personal Chats Easily 📊
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Call the header function at the start
+add_header()
+
 st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾")
 st.sidebar.title("ChatLytix")
 
@@ -135,6 +166,39 @@ if uploaded_file is not None:
         #     st.pyplot(fig)
 
 
+def add_footer():
+    footer = """
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+        }
+        .footer a {
+            color: #0073b1;  /* LinkedIn Blue */
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <div class="footer">
+        © 2025 <b>ChatLytix</b>. All rights reserved. |
+        Contact: <a href="mailto:pandeyabhishek8685@gmail.com">pandeyabhishek8685@gmail.com</a> |
+        <a href="https://www.linkedin.com/in/pandeyabhishek25" target="_blank">LinkedIn</a>
+    </div>
+    """
+    st.markdown(footer, unsafe_allow_html=True)
+
+# Call the footer function at the end
+add_footer()
 
 
 
