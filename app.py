@@ -6,38 +6,82 @@ import preprocessor
 import seaborn as sns
 
 #adding header 
+# import streamlit as st
+
+# def add_header():
+#     st.markdown(
+#         """
+#         <style>
+#         .header {
+#             padding: 12px 0;
+#             width: 100%;
+#             text-align: center;
+#             background: linear-gradient(90deg, #1F1C2C, #928DAB);
+#             color: white;
+#             font-size: 26px;
+#             font-weight: bold;
+#             margin-top: 0;
+#             margin-bottom: 20px; /* Add space after header */
+#             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+#             border-radius: 8px;
+#         }
+#         .main .block-container {
+#             padding-top: 20px; /* Increase padding if needed */
+#         }
+#         </style>
+#         <div class="header">ChatLytix - Analyze Your Chats Like a Pro! 🚀</div>
+#         """,
+#         unsafe_allow_html=True
+#     )
+
 import streamlit as st
 
-def add_header():
-    st.markdown(
-        """
-        <style>
-        .header {
-            padding: 12px 0;
-            width: 100%;
-            text-align: center;
-            background: linear-gradient(90deg, #1F1C2C, #928DAB);
-            color: white;
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 20px; /* Add space after header */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+# Custom CSS for the header
+st.markdown(
+    """
+    <style>
+    .header {
+        width: 100%;
+        max-width: 900px; /* Set max width */
+        margin: 0 auto;
+        padding: 10px 20px;
+        text-align: center;
+        overflow: hidden;
+        white-space: normal; /* Allow text to wrap */
+    }
+    .header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: #fff;
+        padding: 10px;
+        display: inline-block;
+    }
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 1.8rem;
+            padding: 5px;
         }
-        .main .block-container {
-            padding-top: 20px; /* Increase padding if needed */
-        }
-        </style>
-        <div class="header">ChatLytix - Analyze Your Chats Like a Pro! 🚀</div>
-        """,
-        unsafe_allow_html=True
-    )
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Add the header
+st.markdown(
+    """
+    <div class="header">
+        <h1>Get Smart with Numbers 🧩 — Meet ChatLytix! 👾</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 
 
-add_header()
+# add_header()
 st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾")
 st.sidebar.title("ChatLytix")
 
