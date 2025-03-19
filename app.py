@@ -6,6 +6,8 @@ import preprocessor
 import seaborn as sns
 
 #adding header 
+import streamlit as st
+
 def add_header():
     st.markdown(
         """
@@ -18,24 +20,24 @@ def add_header():
             color: white;
             font-size: 26px;
             font-weight: bold;
-            margin-top: -50px;
+            margin-top: 0;
+            margin-bottom: 20px; /* Add space after header */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
         .main .block-container {
-            padding-top: 0;
+            padding-top: 20px; /* Increase padding if needed */
         }
         </style>
-        <div class="header">
-            🚀 ChatLytix - Analyze Group & Personal Chats Easily 📊
-        </div>
+        <div class="header">ChatLytix - Analyze Your Chats Like a Pro! 🚀</div>
         """,
         unsafe_allow_html=True
     )
 
-# Call the header function at the start
-add_header()
 
+
+
+add_header()
 st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾")
 st.sidebar.title("ChatLytix")
 
