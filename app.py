@@ -18,7 +18,8 @@ def add_header():
             color: white;
             font-size: 26px;
             font-weight: bold;
-            margin-top: 0; /* Fixed the margin */
+            margin-top: 20px; /* Fixed the margin */
+            margin-bottom:20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
