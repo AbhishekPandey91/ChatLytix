@@ -47,3 +47,5 @@ django-emoji~=2.2.2
 tenacity~=8.2.3
 urlextract~=1.9.0
 wordcloud~=1.9.4
+
+emoji
