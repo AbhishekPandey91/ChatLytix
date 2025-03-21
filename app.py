@@ -5,9 +5,9 @@ import helper
 import preprocessor
 import seaborn as sns
 
-#adding header 
 import streamlit as st
 
+# Add a sleek header with a modern gradient
 def add_header():
     st.markdown(
         """
@@ -20,22 +20,27 @@ def add_header():
             color: white;
             font-size: 26px;
             font-weight: bold;
-            margin-top: 50px;
-            margin-bottom: 20px; /* Add space after header */
+            margin-top: -50px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
         .main .block-container {
-            padding-top: 20px; /* Increase padding if needed */
+            padding-top: 0;
         }
         </style>
-        <div class="header">ChatLytix - Analyze Your Chats Like a Pro! 🚀</div>
+        <div class="header">
+            🚀 ChatLytix - Analyze Group & Personal Chats Easily 📊
+        </div>
         """,
         unsafe_allow_html=True
     )
+
+# Call the header function at the start
 add_header()
-st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾")
-st.sidebar.title("ChatLytix")
+
+
+st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾" )
+st.sidebar.title("Whatsapp Chat Analyzer")
 
 uploaded_file = st.sidebar.file_uploader("Choose a file")
 if uploaded_file is not None:
@@ -59,7 +64,7 @@ if uploaded_file is not None:
     if st.sidebar.button("Give Analysis"):
 
         num_msgs , words , num_media_msg  , num_links= helper.fetch_stats(selected_user,df)
-        st.title('Critical Figures')
+        st.title('Top Statistics')
         col1 , col2 , col3 , col4 = st.columns(4)
 
         with col1:
@@ -69,7 +74,7 @@ if uploaded_file is not None:
             st.header("Total Words")
             st.title(words)
         with col3:
-            st.header("Total Media ")
+            st.header("Total Media Shared")
             st.title(num_media_msg)
         with col4:
             st.header("Total Links")
@@ -78,7 +83,7 @@ if uploaded_file is not None:
         ###  MONTHLY TIMELINE
         timeline=helper.monthly_timeline(selected_user,df)
         fig , ax = plt.subplots()
-        st.title("Monthly Overview")
+        st.title("Monthly Timeline")
         ax.plot(timeline['time'] ,timeline['msg'])
         plt.xticks(rotation=90)
         st.pyplot(fig)
@@ -88,7 +93,7 @@ if uploaded_file is not None:
 
         daily_timeline1 = helper.daily_timeline(selected_user, df)
         fig, ax = plt.subplots()
-        st.title("Daily Overview")
+        st.title("Daily Timeline")
         ax.plot(daily_timeline1['only_date'], daily_timeline1['msg'] , color='purple')
         plt.xticks(rotation=90)
         st.pyplot(fig)
@@ -123,7 +128,7 @@ if uploaded_file is not None:
 
         ### FINDING THE BUSIEST USer in group (only for group level)
         if selected_user == "Full Analysis":
-            st.title("Full-Time Juggler 😎")
+            st.title("The most Busy User")
             x , df1 =helper.most_busy_users(df)
             fig,ax = plt.subplots()
             col1, col2  = st.columns(2)
@@ -136,7 +141,7 @@ if uploaded_file is not None:
                 st.dataframe(df1)
 
         ## WORDCLOUD
-        st.title("Jargon Jungle 🌴")
+        st.title("WordCloud")
         df_wc=helper.create_wordcloud(selected_user,df)
         fig , ax = plt.subplots()
         ax.imshow(df_wc)
@@ -148,22 +153,25 @@ if uploaded_file is not None:
 
         fig,ax = plt.subplots()
         ax.barh(most_common_df[0] , most_common_df[1])
-        st.title("Wordzilla 🦖")
+        st.title("Most Common Words")
         st.pyplot(fig)
 
-        # ## EMOJI ANALYSIS
-        # emoji_df = helper.emoji_analysis(selected_user , df )
-        # st.title("Emoji Analysis")
+        ## EMOJI ANALYSIS
+        emoji_df = helper.emoji_analysis(selected_user , df )
+        st.title("Emoji Analysis")
 
-        # col1, col2 = st.columns(2)
-        # with col1:
-        #     st.dataframe(emoji_df)
-        # with col2:
-        #     fig,ax = plt.subplots()
-        #     ax.pie(emoji_df[1].head(),labels=emoji_df[0].head(),autopct='%0.2f')
-        #     st.pyplot(fig)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.dataframe(emoji_df)
+        with col2:
+            fig,ax = plt.subplots()
+            ax.pie(emoji_df[1].head(),labels=emoji_df[0].head(),autopct='%0.2f')
+            st.pyplot(fig)
 
 
+import streamlit as st
+
+# Add footer
 def add_footer():
     footer = """
     <style>
@@ -197,8 +205,3 @@ def add_footer():
 
 # Call the footer function at the end
 add_footer()
-
-
-
-
-
