@@ -1,11 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-
 import helper
 import preprocessor
 import seaborn as sns
 
-import streamlit as st
 
 # Add a sleek header with a modern gradient
 def add_header():
@@ -20,12 +18,12 @@ def add_header():
             color: white;
             font-size: 26px;
             font-weight: bold;
-            margin-top: -50px;
+            margin-top: 0; /* Fixed the margin */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
         .main .block-container {
-            padding-top: 0;
+            padding-top: 20px; /* Added some padding to avoid overlap */
         }
         </style>
         <div class="header">
@@ -37,6 +35,7 @@ def add_header():
 
 # Call the header function at the start
 add_header()
+
 
 
 st.title("Get Smart with Numbers🧩—Meet ChatLytix!👾" )
@@ -205,3 +204,13 @@ def add_footer():
 
 # Call the footer function at the end
 add_footer()
+
+
+
+
+
+
+
+
+
+
