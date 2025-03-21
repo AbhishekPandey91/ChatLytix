@@ -3,7 +3,7 @@ import pandas as pd
 from  urlextract import URLExtract
 from wordcloud import WordCloud
 from collections import Counter
-import emoji
+# import emoji
 
 
 
